@@ -1,0 +1,32 @@
+{
+  "name": "webpack-postcss-tools",
+  "version": "1.0.0",
+  "description": "tools to make it easier to use postcss plugins with webpack's css-loader",
+  "main": "index.js",
+  "directories": {
+    "example": "example",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "./test/test.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aaronj1335/webpack-postcss-tools.git"
+  },
+  "keywords": [
+    "postcss",
+    "webpack"
+  ],
+  "author": "Aaron Stacy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aaronj1335/webpack-postcss-tools/issues"
+  },
+  "homepage": "https://github.com/aaronj1335/webpack-postcss-tools",
+  "dependencies": {
+    "lodash": "^3.5.0",
+    "postcss": "^4.0.6",
+    "resolve": "^1.1.6"
+  }
+}
