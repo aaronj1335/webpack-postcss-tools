@@ -12,14 +12,14 @@ in the dependency graph. this means:
 
 - you only include the css you want
 - it resolves `@import` statements just like `require()` calls in js (i.e. by
-  finding packages in places like `node_modules`)
+  finding packages in `node_modules`)
 - you can make css-only npm packages (like [suitcss][])
 
 the downside is things like variable resolution get tricky (more on that
 [here][var-resolution]).
 
 these tools give you the full power of webpack's dependency management without
-sacrificing must-have css features like variables.
+sacrificing must-have css features.
 
 ## usage
 
