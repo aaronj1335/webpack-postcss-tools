@@ -1,5 +1,6 @@
 var fs = require('fs');
 var join = require('path').join;
+var pathResolve = require('path').resolve;
 var resolve = require('resolve');
 var extend = require('lodash').extend;
 var postcss = require('postcss');
@@ -33,7 +34,7 @@ function makeVarMap(filename) {
       return path;
 
     if (path[0] === '.')
-      return join(basedir, path);
+      return join(dirname(basedir), path);
 
     // webpack treats anything starting w/ ~ as a module name, which we're
     // about to do below, so just remove leading tildes
@@ -65,7 +66,7 @@ function makeVarMap(filename) {
 
       var stripped = atRule.params.replace(/^["']/, '').replace(/['"]$/, '');
 
-      process(resolveImport(stripped, dirname(filename)));
+      process(resolveImport(stripped, filename));
     });
 
 
@@ -103,7 +104,7 @@ function makeVarMap(filename) {
     });
   }
 
-  process(filename);
+  process(pathResolve(filename));
 
   return map;
 }
