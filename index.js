@@ -1,4 +1,5 @@
 var fs = require('fs');
+var pathResolve = require('path').resolve;
 var join = require('path').join;
 var resolve = require('resolve');
 var extend = require('lodash').extend;
@@ -33,7 +34,7 @@ function makeVarMap(filename) {
       return path;
 
     if (path[0] === '.')
-      return join(basedir, path);
+      return pathResolve(join(basedir, path));
 
     // webpack treats anything starting w/ ~ as a module name, which we're
     // about to do below, so just remove leading tildes
@@ -103,7 +104,7 @@ function makeVarMap(filename) {
     });
   }
 
-  process(filename);
+  process(pathResolve(filename));
 
   return map;
 }

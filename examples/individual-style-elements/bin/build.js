@@ -23,7 +23,7 @@ function isBuiltFilename(filename) { return builtFilenameRegex.test(filename); }
 function build() {
   rm('-rf', buildPath);
 
-  if (exec('node ./node_modules/.bin/webpack --bail').code !== 0)
+  if (exec('npm run webpack').code !== 0)
     throw new Error('webpack build failed');
 
   var builtFilename = ls(buildPath).filter(isBuiltFilename)[0];
