@@ -64,6 +64,7 @@ function makeVarMap(filename) {
                 return;
 
             var stripped = atRule.params.replace(/^["']/, '').replace(/['"]$/, '');
+
             process(resolveImport(stripped, filename));
         });
 
