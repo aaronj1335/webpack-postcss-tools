@@ -1,6 +1,6 @@
 # `webpack-postcss-tools`
 
-> tools to make it easier to use postcss plugins with webpack's css-loader
+> tools that make it easier to use postcss plugins with webpack's css-loader
 
 <a href="https://travis-ci.org/aaronj1335/webpack-postcss-tools">
   <img src="https://travis-ci.org/aaronj1335/webpack-postcss-tools.svg" />
@@ -23,8 +23,8 @@ sacrificing must-have css features.
 
 ## usage
 
-check out [the example directory][] to see it working. the webpack config looks
-something like this:
+check out [the examples directory][] to see it working. the webpack config
+looks something like this:
 
 ```js
 var join = require('path').join;
@@ -76,4 +76,4 @@ module.exports = {
 [css-loader]: https://github.com/webpack/css-loader
 [suitcss]: https://suitcss.github.io
 [var-resolution]: https://github.com/aaronj1335/rework-webpack-loader#why-not-just-chain-plugins-together
-[the example directory]: https://github.com/aaronj1335/webpack-postcss-tools/tree/master/example
+[the examples directory]: https://github.com/aaronj1335/webpack-postcss-tools/tree/master/example
