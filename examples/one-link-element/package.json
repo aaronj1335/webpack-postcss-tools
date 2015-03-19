@@ -1,0 +1,30 @@
+{
+  "name": "example-app",
+  "version": "0.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "./bin/dev.js",
+    "build": "./bin/build.js"
+  },
+  "dependencies": {
+    "extract-text-webpack-plugin": "^0.3.8",
+    "react": "~0.11.1",
+    "suitcss": "0.6.0"
+  },
+  "devDependencies": {
+    "lodash": "~2.4.1",
+    "webpack": "~1.7.3",
+    "webpack-dev-middleware": "~1.0.11",
+    "shelljs": "~0.3.0",
+    "connect": "~2.25.7",
+    "connect-logger": "0.0.1",
+    "style-loader": "~0.8.3",
+    "css-loader": "~0.9.1",
+    "file-loader": "~0.7.2",
+    "webpack-postcss-tools": "*.*.*",
+    "postcss-calc": "~4.0.0",
+    "postcss-custom-media": "~3.0.0",
+    "postcss-custom-properties": "~3.0.1",
+    "postcss-loader": "~0.3.0"
+  }
+}

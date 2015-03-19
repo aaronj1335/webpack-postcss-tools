@@ -1,0 +1,20 @@
+@import "common-css";
+
+/* i dunno just something to verify */
+body {
+  font-size: 20px;
+}
+
+.App {
+  background-image: url(../img/a_hot_mess.gif);
+}
+
+@media
+only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (        min-device-pixel-ratio: 2),
+only screen and (                min-resolution: 192dpi),
+only screen and (                min-resolution: 2dppx) {
+  .App {
+    background-image: url(../img/aww-yiss.gif);
+  }
+}
