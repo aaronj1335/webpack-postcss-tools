@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "./bin/dev.js",
-    "build": "./bin/build.js"
+    "dev": "node ./bin/dev.js",
+    "build": "node ./bin/build.js",
+    "webpack":"webpack --bail"
   },
   "dependencies": {
     "extract-text-webpack-plugin": "^0.3.8",
