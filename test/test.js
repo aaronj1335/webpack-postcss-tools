@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 var join = require('path').join;
+var resolve = require('path').resolve;
 var tmpdir = require('os').tmpdir;
 var shelljs = require('shelljs');
 var ls = shelljs.ls, rm = shelljs.rm, mkdir = shelljs.mkdir, cp = shelljs.cp,
@@ -20,6 +21,12 @@ ls('examples').forEach(function(d) {
   cd(dir);
 
   console.log('building example', d);
+
+  if (exec('npm cache clean webpack-postcss-tools').code != 0)
+    throw new Error('`npm cache clean webpack-postcss-tools` failed in', dir);
+
+  if (exec('npm install ' + resolve(base)).code != 0)
+    throw new Error('`npm install ' + resolve(base) + '` failed in', dir);
 
   if (exec('npm install').code != 0)
     throw new Error('`npm install` failed in', dir);
