@@ -1,7 +1,7 @@
 var join = require('path').join;
 var webpackPostcssTools = require('webpack-postcss-tools');
 
-var map = webpackPostcssTools.makeVarMap('./src/index.css');
+var map = webpackPostcssTools.makeVarMap('src/index.css');
 
 module.exports = {
   entry: './src/index',
