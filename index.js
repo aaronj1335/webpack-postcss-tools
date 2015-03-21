@@ -34,7 +34,8 @@ function makeVarMap(filename) {
       return path;
 
     if (path[0] === '.')
-      return join(dirname(basedir), path);
+      return join(require('path').dirname(basedir), path);
+    console.log('BLERG',path);
 
     // webpack treats anything starting w/ ~ as a module name, which we're
     // about to do below, so just remove leading tildes
