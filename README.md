@@ -66,6 +66,10 @@ module.exports = {
     require('postcss-custom-media')({
       extensions: map.media
     }),
+      
+    require('postcss-custom-selector')({
+      extensions: map.selector
+    }),
 
     require('postcss-calc')()
   ]

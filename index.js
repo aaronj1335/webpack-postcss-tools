@@ -26,8 +26,12 @@ var dirname = require('path').dirname;
  * variables, including those defined in `import`'ed css files. it does the
  * same for custom media queries.
  */
+function stripImport(params) {
+  return params.replace(/^["']/, '').replace(/['"]$/, '');
+}
+
 function makeVarMap(filename) {
-  var map = {vars: {}, media: {}};
+  var map = {vars: {}, media: {}, selector: {}};
 
   function resolveImport(path, basedir) {
     if (path[0] === '/')
@@ -64,44 +68,43 @@ function makeVarMap(filename) {
       if (atRule.name !== 'import')
         return;
 
-      var stripped = atRule.params.replace(/^["']/, '').replace(/['"]$/, '');
+      var stripped = stripImport(atRule.params);
 
       process(resolveImport(stripped, dirname(filename)));
     });
 
-
     // extract variable definitions
-    style.root.eachRule(function(rule) {
-      if (rule.type !== 'rule')
-        return;
+    style.root.eachRule(processRules);
 
-      // only variables declared for `:root` are supported for now
-      if (rule.selectors.length !== 1 ||
-          rule.selectors[0] !== ':root' ||
-          rule.parent.type !== 'root')
-        return;
+    // extract custom definitions
+    style.root.eachAtRule(processAtRuleCustom)
+  }
 
-      rule.each(function(decl) {
-        var prop = decl.prop;
-        var value = decl.value;
+  function processRules(rule) {
+    // only variables declared for `:root` are supported for now
+    if (rule.type !== 'rule' ||
+        rule.selectors.length !== 1 ||
+        rule.selectors[0] !== ':root' ||
+        rule.parent.type !== 'root')
+      return;
 
-        if (prop && prop.indexOf('--') === 0)
-          map.vars[prop] = value;
-      });
+    rule.each(function(decl) {
+      var prop = decl.prop;
+      var value = decl.value;
+
+      if (prop && prop.indexOf('--') === 0)
+        map.vars[prop] = value;
     });
+  }
 
-
-    // extract custom media declarations
-    style.root.eachAtRule(function(atRule) {
-      if (atRule.name !== 'custom-media')
-        return;
-
+  function processAtRuleCustom(atRule) {
+    if (atRule.name && ['custom-media', 'custom-selector'].indexOf(atRule.name) !== -1) {
+      var type = atRule.name.split('-')[1];
       var name = atRule.params.split(/\s+/, 1)[0];
       var nameRe = new RegExp('^' + name + '\\s+');
-      var rest = atRule.params.replace(nameRe, '');
 
-      map.media[name] = rest;
-    });
+      map[type][name] = atRule.params.replace(nameRe, '');
+    }
   }
 
   process(pathResolve(filename));
@@ -123,7 +126,7 @@ function prependTildesToImports(styles) {
     if (atRule.name !== 'import')
       return;
 
-    var stripped = atRule.params.replace(/^["']/, '').replace(/['"]$/, '');
+    var stripped = stripImport(atRule.params);
 
     if (stripped[0] !== '.' && stripped[0] !== '~' && stripped[0] !== '/')
       atRule.params = '"~' + stripped + '"';
