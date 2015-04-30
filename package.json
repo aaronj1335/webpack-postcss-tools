@@ -8,7 +8,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "node ./test/test.js"
+    "test": "gulp && node ./test/test.js"
   },
   "repository": {
     "type": "git",
@@ -25,11 +25,22 @@
   },
   "homepage": "https://github.com/aaronj1335/webpack-postcss-tools",
   "dependencies": {
-    "lodash": "^3.5.0",
-    "postcss": "^4.0.6",
+    "lodash": "^3.7.0",
+    "postcss": "^4.1.7",
     "resolve": "^1.1.6"
   },
   "devDependencies": {
+    "chai": "^2.3.0",
+    "fs-extra": "^0.18.2",
+    "gulp": "^3.8.11",
+    "gulp-eslint": "^0.11.1",
+    "gulp-mocha": "^2.0.1",
+    "gulp-webpack": "^1.4.0",
+    "postcss-custom-media": "^3.0.0",
+    "postcss-custom-properties": "^3.3.0",
+    "postcss-custom-selectors": "^1.1.0",
+    "postcss-loader": "^0.4.1",
+    "raw-loader": "^0.5.1",
     "shelljs": "^0.4.0"
   }
 }

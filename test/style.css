@@ -1,0 +1,1 @@
+@import './_variables.css';div{background:var(--darkBlue);}@media(--mobile){--heading{margin-top: 0;}}

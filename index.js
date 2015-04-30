@@ -46,7 +46,7 @@ function makeVarMap(filename) {
 
     return resolve.sync(path, {
       basedir: basedir,
-      packageFilter: function(package) {
+      packageFilter: function (package) {
         var newPackage = extend({}, package);
 
         if (newPackage.style != null)
@@ -57,29 +57,6 @@ function makeVarMap(filename) {
     });
   }
 
-  function process(filename) {
-    var style = postcss().process(fs.readFileSync(filename, 'utf8'));
-
-    // recurse into each import. because we make the recursive call before
-    // extracting values (depth-first, post-order traversal), files that import
-    // libraries can re-define variable declarations, which more-closely
-    // matches the browser's behavior
-    style.root.eachAtRule(function(atRule) {
-      if (atRule.name !== 'import')
-        return;
-
-      var stripped = stripImport(atRule.params);
-
-      process(resolveImport(stripped, dirname(filename)));
-    });
-
-    // extract variable definitions
-    style.root.eachRule(processRules);
-
-    // extract custom definitions
-    style.root.eachAtRule(processAtRuleCustom)
-  }
-
   function processRules(rule) {
     // only variables declared for `:root` are supported for now
     if (rule.type !== 'rule' ||
@@ -88,7 +65,7 @@ function makeVarMap(filename) {
         rule.parent.type !== 'root')
       return;
 
-    rule.each(function(decl) {
+    rule.each(function (decl) {
       var prop = decl.prop;
       var value = decl.value;
 
@@ -107,6 +84,29 @@ function makeVarMap(filename) {
     }
   }
 
+  function process(fn) {
+    var style = postcss().process(fs.readFileSync(fn, 'utf8'));
+
+    // recurse into each import. because we make the recursive call before
+    // extracting values (depth-first, post-order traversal), files that import
+    // libraries can re-define variable declarations, which more-closely
+    // matches the browser's behavior
+    style.root.eachAtRule(function (atRule) {
+      if (atRule.name !== 'import')
+        return;
+
+      var stripped = stripImport(atRule.params);
+
+      process(resolveImport(stripped, dirname(fn)));
+    });
+
+    // extract variable definitions
+    style.root.eachRule(processRules);
+
+    // extract custom definitions
+    style.root.eachAtRule(processAtRuleCustom);
+  }
+
   process(pathResolve(filename));
 
   return map;
@@ -122,7 +122,7 @@ function makeVarMap(filename) {
  * [url-to-req]: https://github.com/webpack/css-loader/blob/7b50d4f569adcaf5bf185180c15435bde03f4de7/index.js#L37
  */
 function prependTildesToImports(styles) {
-  styles.eachAtRule(function(atRule) {
+  styles.eachAtRule(function (atRule) {
     if (atRule.name !== 'import')
       return;
 

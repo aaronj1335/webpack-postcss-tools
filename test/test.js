@@ -4,7 +4,7 @@ var join = require('path').join;
 var resolve = require('path').resolve;
 var tmpdir = require('os').tmpdir;
 var shelljs = require('shelljs');
-var ls = shelljs.ls, rm = shelljs.rm, mkdir = shelljs.mkdir, cp = shelljs.cp,
+var ls = shelljs.ls, mkdir = shelljs.mkdir, cp = shelljs.cp,
   cd = shelljs.cd, exec = shelljs.exec;
 
 var tmp = join(tmpdir(), 'webpack-postcss-tools.' + process.pid);
@@ -22,16 +22,16 @@ ls('examples').forEach(function(d) {
 
   console.log('building example', d);
 
-  if (exec('npm cache clean webpack-postcss-tools').code != 0)
+  if (exec('npm cache clean webpack-postcss-tools').code !== 0)
     throw new Error('`npm cache clean webpack-postcss-tools` failed in', dir);
 
-  if (exec('npm install ' + resolve(base)).code != 0)
+  if (exec('npm install ' + resolve(base)).code !== 0)
     throw new Error('`npm install ' + resolve(base) + '` failed in', dir);
 
-  if (exec('npm install').code != 0)
+  if (exec('npm install').code !== 0)
     throw new Error('`npm install` failed in', dir);
 
-  if (exec('npm run build').code != 0)
+  if (exec('npm run build').code !== 0)
     throw new Error('`npm run build` failed in', dir);
 
   cd(base);
