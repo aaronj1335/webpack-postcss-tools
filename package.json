@@ -1,6 +1,6 @@
 {
   "name": "webpack-postcss-tools",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "tools to make it easier to use postcss plugins with webpack's css-loader",
   "main": "index.js",
   "directories": {
