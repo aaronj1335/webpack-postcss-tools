@@ -6,6 +6,10 @@ var extend = require('lodash').extend;
 var postcss = require('postcss');
 var dirname = require('path').dirname;
 
+function stripQuotes(params) {
+  return params.replace(/^["']/, '').replace(/['"]$/, '');
+}
+
 /**
  * create maps of variables and custom media queries
  *
@@ -26,10 +30,6 @@ var dirname = require('path').dirname;
  * variables, including those defined in `import`'ed css files. it does the
  * same for custom media queries.
  */
-function stripImport(params) {
-  return params.replace(/^["']/, '').replace(/['"]$/, '');
-}
-
 function makeVarMap(filename) {
   var map = {vars: {}, media: {}, selector: {}};
 
@@ -95,7 +95,7 @@ function makeVarMap(filename) {
       if (atRule.name !== 'import')
         return;
 
-      var stripped = stripImport(atRule.params);
+      var stripped = stripQuotes(atRule.params);
 
       process(resolveImport(stripped, dirname(fn)));
     });
@@ -126,7 +126,7 @@ function prependTildesToImports(styles) {
     if (atRule.name !== 'import')
       return;
 
-    var stripped = stripImport(atRule.params);
+    var stripped = stripQuotes(atRule.params);
 
     if (stripped[0] !== '.' && stripped[0] !== '~' && stripped[0] !== '/')
       atRule.params = '"~' + stripped + '"';

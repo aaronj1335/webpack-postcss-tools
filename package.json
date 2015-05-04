@@ -8,7 +8,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "gulp && node ./test/test.js"
+    "test": "node ./test/test.js",
+    "lint": "./node_modules/.bin/eslint index.js test/*.js"
   },
   "repository": {
     "type": "git",
@@ -31,16 +32,13 @@
   },
   "devDependencies": {
     "chai": "^2.3.0",
-    "fs-extra": "^0.18.2",
-    "gulp": "^3.8.11",
-    "gulp-eslint": "^0.11.1",
-    "gulp-mocha": "^2.0.1",
-    "gulp-webpack": "^1.4.0",
+    "mocha": "^2.2.4",
     "postcss-custom-media": "^3.0.0",
     "postcss-custom-properties": "^3.3.0",
     "postcss-custom-selectors": "^1.1.0",
     "postcss-loader": "^0.4.1",
     "raw-loader": "^0.5.1",
-    "shelljs": "^0.4.0"
+    "shelljs": "^0.4.0",
+    "webpack": "^1.8.11"
   }
 }

@@ -12,7 +12,7 @@ module.exports = {
   context: __dirname,
   entry: './css_test.js',
   output: {
-    path: path.join(__dirname, '..', 'build'),
+    path: path.join(__dirname, 'test-build'),
     filename: 'css_test.js'
   },
   postcss: {
