@@ -112,6 +112,10 @@ function makeVarMap(filename) {
   return map;
 }
 
+function unwrapUrl(params) {
+  return params.replace(/url\((.+?)\)/, '$1');
+}
+
 /**
  * prepend a tilde to css module imports
  *
@@ -126,10 +130,10 @@ function prependTildesToImports(styles) {
     if (atRule.name !== 'import')
       return;
 
-    var stripped = stripQuotes(atRule.params);
-
-    if (stripped[0] !== '.' && stripped[0] !== '~' && stripped[0] !== '/')
+    var stripped = stripQuotes(unwrapUrl(atRule.params));
+    if (stripped[0] !== '.' && stripped[0] !== '~' && stripped[0] !== '/') {
       atRule.params = '"~' + stripped + '"';
+    }
 
   });
 }
