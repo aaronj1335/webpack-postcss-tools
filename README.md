@@ -80,4 +80,4 @@ module.exports = {
 [css-loader]: https://github.com/webpack/css-loader
 [suitcss]: https://suitcss.github.io
 [var-resolution]: https://github.com/aaronj1335/rework-webpack-loader#why-not-just-chain-plugins-together
-[the examples directory]: https://github.com/aaronj1335/webpack-postcss-tools/tree/master/example
+[the examples directory]: https://github.com/aaronj1335/webpack-postcss-tools/tree/master/examples
