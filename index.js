@@ -84,6 +84,10 @@ function makeVarMap(filename) {
     }
   }
 
+  function isUrl(string) {
+    return /(https?:)?\/\//.test(string);
+  }
+
   function process(fn) {
     var style = postcss().process(fs.readFileSync(fn, 'utf8'));
 
@@ -95,7 +99,11 @@ function makeVarMap(filename) {
       if (atRule.name !== 'import')
         return;
 
-      var stripped = stripQuotes(atRule.params);
+      var stripped = stripQuotes(unwrapUrl(atRule.params));
+
+      if(isUrl(stripped)) {
+        return;
+      }
 
       process(resolveImport(stripped, dirname(fn)));
     });
